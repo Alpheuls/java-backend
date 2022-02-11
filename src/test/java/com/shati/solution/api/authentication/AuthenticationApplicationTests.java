@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.shati.solution.api.authentication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class DemoApplicationTests {
+public class AuthenticationApplicationTests {
 
 	@Test
 	public void contextLoads() {
@@ -20,9 +20,4 @@ public class DemoApplicationTests {
 	@Autowired
 	private TestRestTemplate restTemplate;
 
-	@Test
-	public void homeResponse() {
-		String body = this.restTemplate.getForObject("/", String.class);
-		assertThat(body).isEqualTo("Spring is here!");
-	}
 }
