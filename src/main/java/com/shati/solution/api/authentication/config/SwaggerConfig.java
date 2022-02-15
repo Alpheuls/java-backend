@@ -18,8 +18,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
-                .build()
-                .host("api.shati-solution.org");
+                .build();
+                //.host("api.shati-solution.org");
 
     }
 }

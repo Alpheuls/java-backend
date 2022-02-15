@@ -1,6 +1,7 @@
 package com.shati.solution.api.authentication.service.impl;
 
 import com.shati.solution.api.authentication.model.Authentication;
+import com.shati.solution.api.authentication.model.User;
 import com.shati.solution.api.authentication.model.dto.AuthenticationDto;
 import com.shati.solution.api.authentication.repository.AuthenticationRepository;
 import com.shati.solution.api.authentication.repository.UserRepository;
@@ -65,12 +66,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         AuthenticationDto response = new AuthenticationDto();
        try{
            filter(request);
-           response = createToken(userId);
+           String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+           String token = authorizationHeader.substring("Bearer".length()).trim();
+           User user = userRepository.findByUserId(userId);
+           Authentication authentication = authenticationRepository.findByUserAndTokenAndChannel(user, token, "SSFE");
+           if(authentication.getStatus().equals("1")){
+               authentication.setStatus("0");
+               authenticationRepository.save(authentication);
+           }else{
+              response.setAuthToken("Unauthorized!");
+              return  response;
+           }
+           return response = createToken(userId);
        }
        catch (Exception e){
            throw new RuntimeException(e);
        }
-       return response;
     }
 
     public void filter(HttpServletRequest request) throws IOException {

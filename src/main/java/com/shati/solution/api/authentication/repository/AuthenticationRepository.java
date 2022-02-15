@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthenticationRepository extends JpaRepository<Authentication, Long> {
 
-    @Query(value = "SELECT * FROM AUTHENTICATION a WHERE a.user_id = ?1 and a.auth_token = ?2 and a.channel_initials = ?3", nativeQuery = true)
+    @Query(value = "SELECT * FROM AUTHENTICATION a WHERE a.user_id_id = ?1 and a.auth_token = ?2 and a.channel_initials = ?3", nativeQuery = true)
     Authentication findByUserAndTokenAndChannel(User userId, String authToken, String channel);
 }

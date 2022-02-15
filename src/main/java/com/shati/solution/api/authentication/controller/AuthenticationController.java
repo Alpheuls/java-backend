@@ -32,9 +32,12 @@ public class AuthenticationController {
         AuthenticationDto response = new AuthenticationDto();
         try{
             response = authenticationService.validateToken(userId, request);
+            if (response.getAuthToken().equals("Unauthorized!")){
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
