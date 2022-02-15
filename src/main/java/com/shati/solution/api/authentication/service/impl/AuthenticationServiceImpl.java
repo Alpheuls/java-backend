@@ -75,6 +75,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                authenticationRepository.save(authentication);
            }else{
               response.setAuthToken("Unauthorized!");
+              response.setUserId(userId);
               return  response;
            }
            return response = createToken(userId);
